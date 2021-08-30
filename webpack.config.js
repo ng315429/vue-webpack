@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const webpack = require("webpack");
 const path = require("path");
 
@@ -73,5 +74,6 @@ module.exports = {
           ? JSON.stringify("VUE_WEBPACK_PROD")
           : JSON.stringify("VUE_WEBPACK_DEV"),
     }),
+    new CleanWebpackPlugin(),
   ],
 };
