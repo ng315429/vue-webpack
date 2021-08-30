@@ -2,6 +2,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
 const webpack = require("webpack");
 const path = require("path");
+
 module.exports = {
   devtool: "source-map",
 
@@ -58,5 +59,12 @@ module.exports = {
     }),
     new VueLoaderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin({
+      VERSION: 1,
+      APP_NAME:
+        process.env.NODE_ENV === JSON.stringify("production")
+          ? JSON.stringify("VUE_WEBPACK_PROD")
+          : JSON.stringify("VUE_WEBPACK_DEV"),
+    }),
   ],
 };

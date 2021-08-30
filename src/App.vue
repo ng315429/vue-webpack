@@ -4,6 +4,12 @@
   </div>
 </template>
 
-<script lang="ts">
-export default {};
+<script>
+export default {
+  created() {
+    console.log(process.env.NODE_ENV);
+    console.log(APP_NAME);
+    console.log(VERSION);
+  },
+};
 </script>
