@@ -6,4 +6,8 @@
 export default {};
 </script>
 
-<style></style>
+<style>
+div {
+  color: red;
+}
+</style>

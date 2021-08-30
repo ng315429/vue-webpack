@@ -1,8 +1,10 @@
+const webpack = require("webpack");
+const path = require("path");
+
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const webpack = require("webpack");
-const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   devtool: "source-map",
@@ -35,7 +37,9 @@ module.exports = {
       {
         test: /\.(sa|sc|c)ss$/,
         use: [
-          "vue-style-loader",
+          process.env.NODE_ENV === "production"
+            ? MiniCssExtractPlugin.loader
+            : "vue-style-loader",
           "css-loader",
           "postcss-loader",
           "sass-loader",
@@ -75,5 +79,8 @@ module.exports = {
           : JSON.stringify("VUE_WEBPACK_DEV"),
     }),
     new CleanWebpackPlugin(),
+    ...(process.env.NODE_ENV === "production"
+      ? [new MiniCssExtractPlugin({ filename: `[name].css` })]
+      : []),
   ],
 };
