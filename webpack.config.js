@@ -56,6 +56,13 @@ module.exports = {
       template: path.join(__dirname, "/public/index.html"),
       filename: "index.html",
       inject: true,
+      minify:
+        process.env.NODE_ENV === "production"
+          ? {
+              collapseWhitespace: true,
+              removeComments: true,
+            }
+          : false,
     }),
     new VueLoaderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
