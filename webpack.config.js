@@ -18,7 +18,7 @@ module.exports = {
   output: {
     filename:
       process.env.NODE_ENV === "production"
-        ? "js/[name].[contenthash].js"
+        ? "js/[name].[chunkhash].js"
         : "js/[name].[hash].js",
     path: path.resolve(__dirname, "dist"),
   },
@@ -91,4 +91,10 @@ module.exports = {
       ? [new MiniCssExtractPlugin({ filename: `css/[name].[hash].css` })]
       : []),
   ],
+
+  optimization: {
+    runtimeChunk: {
+      name: "runtime",
+    },
+  },
 };
