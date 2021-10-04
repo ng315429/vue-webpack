@@ -15,6 +15,14 @@ module.exports = {
 
   entry: "./src/main.ts",
 
+  output: {
+    filename:
+      process.env.NODE_ENV === "production"
+        ? "js/[name].[contenthash].js"
+        : "js/[name].[hash].js",
+    path: path.resolve(__dirname, "dist"),
+  },
+
   module: {
     rules: [
       {
@@ -70,7 +78,7 @@ module.exports = {
           : false,
     }),
     new VueLoaderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
+    // new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
       VERSION: 1,
       APP_NAME:
@@ -80,7 +88,7 @@ module.exports = {
     }),
     new CleanWebpackPlugin(),
     ...(process.env.NODE_ENV === "production"
-      ? [new MiniCssExtractPlugin({ filename: `[name].css` })]
+      ? [new MiniCssExtractPlugin({ filename: `css/[name].[hash].css` })]
       : []),
   ],
 };
