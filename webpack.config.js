@@ -6,6 +6,10 @@ const VueLoaderPlugin = require("vue-loader/lib/plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const TerserWebpackPlugin = require("terser-webpack-plugin");
+
+const mode = process.env.NODE_ENV || "development";
+console.log(mode);
 
 module.exports = {
   devtool: "source-map",
@@ -83,7 +87,7 @@ module.exports = {
     new webpack.DefinePlugin({
       VERSION: 1,
       APP_NAME:
-        process.env.NODE_ENV === JSON.stringify("production")
+        process.env.NODE_ENV === "production"
           ? JSON.stringify("VUE_WEBPACK_PROD")
           : JSON.stringify("VUE_WEBPACK_DEV"),
     }),
@@ -114,5 +118,14 @@ module.exports = {
         },
       },
     },
+    minimize: true,
+    minimizer:
+      mode === "production"
+        ? [
+            new TerserWebpackPlugin({
+              cache: true,
+            }),
+          ]
+        : [],
   },
 };
