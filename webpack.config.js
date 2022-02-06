@@ -95,14 +95,6 @@ module.exports = {
     ...(process.env.NODE_ENV === "production"
       ? [new MiniCssExtractPlugin({ filename: `css/[name].[hash].css` })]
       : []),
-    new OptimizeCssAssetsPlugin({
-      assetNameRegExp: /\.css\.scss$/g,
-      cssProcessor: require("cssnano"),
-      cssProcessorPluginOptions: {
-        preset: ["default", { discardComments: { removeAll: true } }],
-      },
-      canPrint: true,
-    }),
   ],
 
   optimization: {
@@ -125,6 +117,7 @@ module.exports = {
             new TerserWebpackPlugin({
               cache: true,
             }),
+            new OptimizeCssAssetsPlugin(),
           ]
         : [],
   },
