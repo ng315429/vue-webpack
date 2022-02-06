@@ -14,7 +14,9 @@ export default {
 };
 </script>
 <style>
+@import url("./style/index.scss");
 div {
   color: blue;
+  background-color: white;
 }
 </style>

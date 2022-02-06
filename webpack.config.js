@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 module.exports = {
   devtool: "source-map",
@@ -90,6 +91,14 @@ module.exports = {
     ...(process.env.NODE_ENV === "production"
       ? [new MiniCssExtractPlugin({ filename: `css/[name].[hash].css` })]
       : []),
+    new OptimizeCssAssetsPlugin({
+      assetNameRegExp: /\.css\.scss$/g,
+      cssProcessor: require("cssnano"),
+      cssProcessorPluginOptions: {
+        preset: ["default", { discardComments: { removeAll: true } }],
+      },
+      canPrint: true,
+    }),
   ],
 
   optimization: {
